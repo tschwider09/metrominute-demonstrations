@@ -21,6 +21,6 @@
 
 ## Why This Split
 - Recorder can run as a scheduler/cron service.
+- Recorder is Flask-compatible and can share the same `.env`/database config as the API deployment.
 - Planner can run as API-facing or CLI-only service.
 - Failure domains are separated: upstream feed instability does not block planner graph logic.
-

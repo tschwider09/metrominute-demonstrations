@@ -21,6 +21,7 @@ What it does:
 - Polls multiple MTA GTFS-RT feeds
 - Persists snapshots, trip update predictions, inferred arrivals, and match/eval rows
 - Uses cache fallback for temporary upstream issues
+- Runs cleanly as a Flask-side background service (cron/worker) with shared env config
 
 Key reliability improvements:
 - Introduces snapshot `status` (`ok`, `degraded`, `down`)
@@ -65,6 +66,10 @@ Set `.env` values:
 - `DATABASE_URL` required for recorder
 - `MTA_API_KEY` optional but recommended for full realtime coverage
 
+Flask deployment note:
+- This recorder is intended to run beside Flask (same runtime env, same DB URL), not inside request handlers.
+- Preferred production mode is scheduler/cron invocation of `scripts/run_recorder.py`.
+
 ## Repository Layout
 
 ```text
@@ -82,4 +87,3 @@ docs/
 - GTFS-RT upstream behavior can vary by feed and auth mode.
 - In degraded states, this repo reports warnings instead of escalating every partial issue as a hard error.
 - This repo intentionally separates data gathering and planning concerns for easier deployment.
-
