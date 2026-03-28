@@ -1,0 +1,5 @@
+SQLAlchemy==2.0.38
+PyMySQL==1.1.1
+python-dotenv==1.0.1
+gtfs-realtime-bindings==1.0.0
+
