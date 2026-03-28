@@ -19,6 +19,11 @@
 3. Run weighted shortest path with transfer penalties.
 4. Return structured route summary, legs, and runtime cache status.
 
+## Hosted UI Layer
+1. Flask web app (`metrominute_rt.webapp`) exposes planner endpoints and runtime health.
+2. Frontend UI provides tabbed route-planning, station lookup, and diagnostics views.
+3. UI consumes planner API responses and renders route legs, summary metrics, and graph/runtime metadata.
+
 ## Why This Split
 - Recorder can run as a scheduler/cron service.
 - Recorder is Flask-compatible and can share the same `.env`/database config as the API deployment.

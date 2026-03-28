@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MetroMinute Route Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="page-bg"></div>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow">MetroMinute Demonstration</p>
+        <h1>Hosted Route Planner</h1>
+        <p class="hero-copy">
+          Visual planner interface built on the same weighted route graph used by the core MetroMinute planning engine.
+        </p>
+      </header>
+
+      <nav class="tabs" aria-label="Route Planner Panels">
+        <button class="tab-btn is-active" data-tab="plan" type="button">Plan</button>
+        <button class="tab-btn" data-tab="stations" type="button">Stations</button>
+        <button class="tab-btn" data-tab="runtime" type="button">Runtime</button>
+      </nav>
+
+      <section class="panel is-active" data-panel="plan">
+        <article class="card">
+          <h2>Trip Query</h2>
+          <p class="muted">Choose origin/destination and optional model weights, then compute a route.</p>
+          <form id="plan-form">
+            <div class="input-grid">
+              <label>
+                <span>From</span>
+                <input id="from-input" list="station-options" placeholder="Times Sq - 42 St (R16)" required />
+              </label>
+              <label>
+                <span>To</span>
+                <input id="to-input" list="station-options" placeholder="Canal St (A27)" required />
+              </label>
+            </div>
+
+            <details class="advanced-panel">
+              <summary>Advanced Weights</summary>
+              <div class="advanced-grid">
+                <label>
+                  <span>Ride Multiplier</span>
+                  <input id="ride-multiplier" type="number" min="0.01" max="10" step="0.01" value="1.0" />
+                </label>
+                <label>
+                  <span>Line Switch Penalty</span>
+                  <input id="line-switch-penalty" type="number" min="0" max="60" step="0.1" value="0.5" />
+                </label>
+                <label>
+                  <span>Station Transfer Penalty</span>
+                  <input id="station-transfer-penalty" type="number" min="0" max="60" step="0.1" value="0.0" />
+                </label>
+                <label>
+                  <span>Direction Switch Penalty</span>
+                  <input id="direction-switch-penalty" type="number" min="0" max="60" step="0.1" value="0.5" />
+                </label>
+                <label>
+                  <span>Transfer Time Multiplier</span>
+                  <input id="transfer-time-multiplier" type="number" min="0" max="10" step="0.1" value="1.0" />
+                </label>
+                <label>
+                  <span>Default Wait Minutes</span>
+                  <input id="default-wait-minutes" type="number" min="0" max="60" step="0.1" value="6.0" />
+                </label>
+                <label>
+                  <span>Arrival Limit</span>
+                  <input id="arrival-limit" type="number" min="1" max="10" step="1" value="5" />
+                </label>
+                <label class="checkbox-row">
+                  <input id="dynamic-wait-enabled" type="checkbox" checked />
+                  <span>Use dynamic wait model</span>
+                </label>
+              </div>
+            </details>
+
+            <div class="button-row">
+              <button class="btn-primary" type="submit">Plan Route</button>
+              <button class="btn-ghost" id="refresh-runtime" type="button">Refresh Runtime</button>
+            </div>
+          </form>
+          <p id="planner-message" class="planner-message" hidden></p>
+        </article>
+
+        <article class="card">
+          <h2>Summary</h2>
+          <div class="summary-grid" id="summary-grid">
+            <div class="summary-item">
+              <span>ETA</span>
+              <strong>--</strong>
+            </div>
+            <div class="summary-item">
+              <span>Transfers</span>
+              <strong>--</strong>
+            </div>
+            <div class="summary-item">
+              <span>Stations</span>
+              <strong>--</strong>
+            </div>
+            <div class="summary-item">
+              <span>Distance (mi)</span>
+              <strong>--</strong>
+            </div>
+          </div>
+          <div id="line-chips" class="line-chips"></div>
+          <ol id="legs-list" class="legs-list">
+            <li class="leg-empty">Plan a route to see station-by-station instructions.</li>
+          </ol>
+        </article>
+      </section>
+
+      <section class="panel" data-panel="stations">
+        <article class="card">
+          <h2>Station Directory</h2>
+          <label class="search-row">
+            <span>Search</span>
+            <input id="station-search" placeholder="Search by station name, code, or line..." />
+          </label>
+          <div id="stations-list" class="stations-list"></div>
+        </article>
+      </section>
+
+      <section class="panel" data-panel="runtime">
+        <article class="card">
+          <h2>Planner Runtime</h2>
+          <p class="muted">Graph and live runtime cache diagnostics used by hosted route planning.</p>
+          <pre id="runtime-json" class="runtime-json">{}</pre>
+        </article>
+      </section>
+    </main>
+
+    <datalist id="station-options"></datalist>
+    <script id="bootstrap-data" type="application/json">{{ bootstrap_data | tojson }}</script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
