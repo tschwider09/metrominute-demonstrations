@@ -15,9 +15,8 @@ from metrominute_rt.webapp import create_web_app
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Run the hosted MetroMinute route planner web UI (Flask)."
+        description="Run the MetroMinute route planner web UI on localhost only."
     )
-    parser.add_argument("--host", default="127.0.0.1", help="Host interface (default: 127.0.0.1).")
     parser.add_argument("--port", type=int, default=8080, help="Port (default: 8080).")
     parser.add_argument("--debug", action="store_true", help="Enable Flask debug mode.")
 
@@ -48,7 +47,9 @@ def main() -> int:
             "station_transfer_penalty": args.station_transfer_penalty,
         }
     )
-    app.run(host=args.host, port=args.port, debug=bool(args.debug))
+    host = "127.0.0.1"
+    print(f"Starting localhost planner UI at http://{host}:{args.port}/")
+    app.run(host=host, port=args.port, debug=bool(args.debug))
     return 0
 
 

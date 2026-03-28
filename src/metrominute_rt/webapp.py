@@ -406,9 +406,11 @@ def create_web_app(overrides: dict[str, Any] | None = None) -> Flask:
 
 def main() -> int:
     app = create_web_app()
+    host = "127.0.0.1"
+    port = int(os.getenv("MMRT_WEB_PORT", "8080"))
     app.run(
-        host=os.getenv("MMRT_WEB_HOST", "127.0.0.1"),
-        port=int(os.getenv("MMRT_WEB_PORT", "8080")),
+        host=host,
+        port=port,
         debug=_parse_bool(os.getenv("MMRT_WEB_DEBUG", "1"), default=True),
     )
     return 0

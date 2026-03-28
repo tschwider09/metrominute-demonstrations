@@ -19,7 +19,7 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--text-main);
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
   background: radial-gradient(circle at 10% 0%, #1c3348 0, #09131d 45%), #09131d;
 }
 
@@ -365,7 +365,7 @@ select:focus {
   color: #9dd9ff;
   max-height: 66vh;
   overflow: auto;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Menlo", "SFMono-Regular", "Consolas", monospace;
   font-size: 0.84rem;
 }
 

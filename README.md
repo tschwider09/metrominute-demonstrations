@@ -7,7 +7,7 @@ Portfolio repository focused on two production-relevant transit AI/data componen
 ## Quick Gloss
 - Real-time collector ingests MTA GTFS-RT feeds and stores prediction-vs-actual evaluation data.
 - Route planner computes transfer-aware paths using line and direction-aware graph nodes.
-- Hosted planner UI gives a deployment-ready visual experience with route planning, station lookup, and runtime diagnostics.
+- Localhost planner UI gives a polished frontend experience for route planning, station lookup, and runtime diagnostics.
 
 ## Project Components
 
@@ -50,7 +50,7 @@ python scripts/plan_route.py \
   --matrix-path /absolute/path/to/non_weighted_planning_graph_matrix.json
 ```
 
-### 3) Hosted Route Planner UI
+### 3) Localhost Route Planner UI
 Files:
 - `src/metrominute_rt/webapp.py`
 - `src/metrominute_rt/web/templates/index.html`
@@ -58,17 +58,17 @@ Files:
 - `src/metrominute_rt/web/static/styles.css`
 
 What it does:
-- Runs the route planner behind Flask endpoints for deployment (`/api/routes/plan`, `/api/stations`, `/api/runtime`).
+- Runs the route planner behind localhost Flask endpoints (`/api/routes/plan`, `/api/stations`, `/api/runtime`).
 - Serves a polished tabbed frontend with:
   - planner form and advanced weight controls
   - leg-by-leg route rendering with line chips and summary metrics
   - station directory and runtime graph/cache diagnostics
-- Mirrors the same planner capability used in MetroMinute while remaining lightweight for public portfolio hosting.
+- Mirrors the same planner capability used in MetroMinute while keeping all frontend/API behavior local.
+- Uses only local frontend assets and relative localhost API calls.
 
 Run locally:
 ```bash
 python scripts/run_route_planner_web.py \
-  --host 127.0.0.1 \
   --port 8080 \
   --station-graph-path /absolute/path/to/station_details.json \
   --gtfs-dir /absolute/path/to/gtfs_static \
@@ -91,7 +91,7 @@ cp .env.example .env
 Set `.env` values:
 - `DATABASE_URL` required for recorder
 - `MTA_API_KEY` optional but recommended for full realtime coverage
-- `MMRT_STATION_GRAPH_PATH` + `MMRT_GTFS_DIRS` required for hosted planner UI when CLI flags are not provided
+- `MMRT_STATION_GRAPH_PATH` + `MMRT_GTFS_DIRS` required for localhost planner UI when CLI flags are not provided
 
 Flask deployment note:
 - This recorder is intended to run beside Flask (same runtime env, same DB URL), not inside request handlers.

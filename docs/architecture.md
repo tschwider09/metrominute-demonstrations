@@ -20,7 +20,7 @@
 4. Return structured route summary, legs, and runtime cache status.
 
 ## Hosted UI Layer
-1. Flask web app (`metrominute_rt.webapp`) exposes planner endpoints and runtime health.
+1. Flask web app (`metrominute_rt.webapp`) exposes localhost planner endpoints and runtime health.
 2. Frontend UI provides tabbed route-planning, station lookup, and diagnostics views.
 3. UI consumes planner API responses and renders route legs, summary metrics, and graph/runtime metadata.
 
