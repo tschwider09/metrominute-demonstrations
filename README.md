@@ -23,10 +23,10 @@ What it does:
 - Uses cache fallback for temporary upstream issues
 - Runs cleanly as a Flask-side background service (cron/worker) with shared env config
 
-Key reliability improvements:
-- Introduces snapshot `status` (`ok`, `degraded`, `down`)
-- Uses `warning` for partial degradation (for example, trip updates available but vehicle positions missing)
-- Keeps `error` for hard-failure conditions only
+GNN validation and planner integration:
+- Uses the data gatherer to build aligned prediction-vs-observation records from MTA realtime feeds.
+- Supports analysis that compares GNN outputs against MTA TripUpdate predictions for validation.
+- Feeds validated insights back into route-planner runtime behavior and weighting decisions.
 
 Run:
 ```bash
