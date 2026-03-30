@@ -9,6 +9,32 @@ Portfolio repository focused on two production-relevant transit AI/data componen
 - Route planner computes transfer-aware paths using line and direction-aware graph nodes.
 - Localhost planner UI gives a polished frontend experience for route planning, station lookup, and runtime diagnostics.
 
+## WIP Context
+- This repository is a work-in-progress portfolio slice of MetroMinute.
+- It demonstrates core engineering systems (realtime data loop + planner + UI), not every production feature.
+- The goal is to show how data, modeling, and routing infrastructure connect end-to-end.
+
+## MetroMinute Full Scope (Program View)
+1. Realtime ingest + recording: pull GTFS-RT feeds, normalize records, and log predictions vs observations.
+2. Validation layer: compare MTA predictions, recent average calculations, and GNN/historical ML outputs.
+3. Route-planning core: run weighted pathfinding on `station|line|direction` graph topology.
+4. Rider product layer: deliver planning UX, station lookup, runtime diagnostics, and API-backed experiences.
+5. Continuous improvement loop: use validation outcomes to update planner weights and routing behavior.
+
+## Lean Canvas (WIP)
+Lean canvas for the broader MetroMinute effort is documented here:
+- [docs/lean_canvas.md](docs/lean_canvas.md)
+
+This repo currently demonstrates highest coverage in:
+- `Problem/Solution`: realtime uncertainty + route decision quality
+- `Key Metrics`: prediction-vs-actual logging and planner runtime outputs
+- `Unfair Advantage`: line/direction-aware planner graph with integrated ML-informed weight loop
+
+## Demo Assets (Coming Soon)
+- Slide deck: `TBD` (add link when ready)
+- Pitch video: `TBD` (add link when ready)
+- Product walkthrough clips: `TBD` (optional)
+
 ## Architecture Diagram
 
 ```mermaid
@@ -148,6 +174,7 @@ scripts/
   run_route_planner_web.py
 docs/
   architecture.md
+  lean_canvas.md
 ```
 
 ## Notes
