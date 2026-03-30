@@ -30,10 +30,9 @@ This repo currently demonstrates highest coverage in:
 - `Key Metrics`: prediction-vs-actual logging and planner runtime outputs
 - `Unfair Advantage`: line/direction-aware planner graph with integrated ML-informed weight loop
 
-## Demo Assets (Coming Soon)
-- Slide deck: `TBD` (add link when ready)
-- Pitch video: `TBD` (add link when ready)
-- Product walkthrough clips: `TBD` (optional)
+## MetroMinute Links
+- Pitch video: [Google Drive folder](https://drive.google.com/drive/folders/1LIPnZuc7t4NHuCe41EwwQeCZ0N35I-FH)
+- Website: [metrominutenyc.riverdale.edu](https://metrominutenyc.riverdale.edu/)
 
 ## Architecture Diagram
 
