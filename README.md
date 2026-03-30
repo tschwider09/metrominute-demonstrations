@@ -9,6 +9,40 @@ Portfolio repository focused on two production-relevant transit AI/data componen
 - Route planner computes transfer-aware paths using line and direction-aware graph nodes.
 - Localhost planner UI gives a polished frontend experience for route planning, station lookup, and runtime diagnostics.
 
+## Architecture Diagram
+
+```mermaid
+flowchart LR
+  A["MTA GTFS-RT Feeds"] --> B["Realtime Recorder"]
+  B --> C["SQL Logs + Prediction Records"]
+  C --> D["MTA Predictions + Recent Average Calculations"]
+  D --> E["GNN / Historical ML Layer"]
+  E --> F["Planner Weight Inputs"]
+  H["Station Graph (station|line|direction nodes) + GTFS Static + Matrix"] --> G["Route Planner Core"]
+  F --> G
+  G --> I["Flask Localhost API"]
+  I --> J["Localhost Planner Frontend"]
+```
+
+Architecture notes:
+- Planner graph nodes are line- and direction-aware (`station_id|line_id|direction`).
+- GNN/historical ML is modeled as a layer on top of MTA predictions and recent average calculations, then merged into planner weights.
+- The weighted planner consumes both topology features and these runtime-informed weight signals.
+
+## What Works Today
+- Realtime recorder captures GTFS-RT snapshots and writes evaluation-ready rows to SQL.
+- Route planner computes weighted, transfer-aware paths with line/direction-aware graph nodes.
+- Planner supports dynamic runtime indices based on realtime-derived arrival and ride features.
+- Localhost frontend provides planning form, advanced weight controls, route-leg rendering, and diagnostics tabs.
+- API endpoints for planner, stations, runtime, and health are available through the Flask UI app.
+- CLI scripts are available for recorder runs, single-query planning, and localhost frontend startup.
+
+## Validation Status / Current Limitations
+- Validation status: the data pipeline needed to compare GNN outputs against MTA TripUpdate predictions is in place and integrated into this repo workflow.
+- Validation status: planner and localhost web endpoints are smoke-tested for healthy responses with local datasets.
+- Current limitation: frontend is localhost-first by design and not configured as a production internet-facing deployment target.
+- Current limitation: this repo focuses on pulling realtime GTFS and merging those signals into validation and route-planner improvement loops, not end-to-end model serving infrastructure.
+
 ## Project Components
 
 ### 1) RT Data Gatherer
