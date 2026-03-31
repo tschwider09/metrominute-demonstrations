@@ -31,7 +31,6 @@ This repo currently demonstrates highest coverage in:
 - `Unfair Advantage`: line/direction-aware planner graph with integrated ML-informed weight loop
 
 ## MetroMinute Links
-- Pitch video: [Google Drive video](https://drive.google.com/file/d/12XEA_EOuuItgXDMXWnosX-Lor7lrxDhl/view?usp=sharing)
 - Website: [metrominutenyc.riverdale.edu](https://metrominutenyc.riverdale.edu/)
 
 ## Architecture Diagram
